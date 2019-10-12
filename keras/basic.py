@@ -20,7 +20,7 @@ for i in range(1000):
     random_old = randint(65,100)
     train_samples.append(random_old)
     train_labels.append(1)
-for i in range(100):
+for i in range(50):
     random_young = randint(13,65)
     train_samples.append(random_young)
     train_labels.append(1)
@@ -36,7 +36,7 @@ scaled_train_samples = MinMaxScaler(feature_range=(0,1)).fit_transform((train_sa
 model = Sequential([
     Dense(16, input_shape=(1,), activation='relu'), #first hidden layer
     Dense(32, activation='relu'), #second hidden layer
-    Dense(2, activation='softmax') #output layer
+    Dense(2, activation='sigmoid') #output layer
 ])
 #compile with optimiser and loss function
 model.compile(
@@ -47,7 +47,8 @@ model.compile(
 #train
 model.fit(
     scaled_train_samples, 
-    train_labels, 
+    train_labels,
+    validation_split=0.20, # save 20% for validation # or validation_data for separate set
     batch_size=10, # number of samples used per epoch
     epochs=20, # number of passes
     shuffle=True, 
