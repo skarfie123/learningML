@@ -31,6 +31,12 @@ for i in range(50):
 train_labels = np.array(train_labels)
 train_samples = np.array(train_samples)
 scaled_train_samples = MinMaxScaler(feature_range=(0,1)).fit_transform((train_samples).reshape(-1,1))
+test_samples = []
+for i in range(1000):
+    rand = randint(13,100)
+    train_samples.append(rand)
+test_samples = np.array(test_samples)
+scaled_test_samples = MinMaxScaler(feature_range=(0,1)).fit_transform((test_samples).reshape(-1,1))
 
 #define model net
 model = Sequential([
@@ -54,3 +60,10 @@ model.fit(
     shuffle=True, 
     verbose=2
 )
+
+predictions = model.predict(
+    scaled_test_samples, 
+    batch_size=10, 
+    verbose=2
+) 
+
