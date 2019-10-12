@@ -34,7 +34,7 @@ scaled_train_samples = MinMaxScaler(feature_range=(0,1)).fit_transform((train_sa
 test_samples = []
 for i in range(1000):
     rand = randint(13,100)
-    train_samples.append(rand)
+    test_samples.append(rand)
 test_samples = np.array(test_samples)
 scaled_test_samples = MinMaxScaler(feature_range=(0,1)).fit_transform((test_samples).reshape(-1,1))
 
@@ -42,7 +42,7 @@ scaled_test_samples = MinMaxScaler(feature_range=(0,1)).fit_transform((test_samp
 model = Sequential([
     Dense(16, input_shape=(1,), activation='relu'), #first hidden layer
     Dense(32, activation='relu'), #second hidden layer
-    Dense(2, activation='sigmoid') #output layer
+    Dense(2, activation='softmax') #output layer
 ])
 #compile with optimiser and loss function
 model.compile(
@@ -64,6 +64,7 @@ model.fit(
 predictions = model.predict(
     scaled_test_samples, 
     batch_size=10, 
-    verbose=2
-) 
+    verbose=0
+)
 
+print(predictions)
