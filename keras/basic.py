@@ -41,7 +41,7 @@ scaled_test_samples = MinMaxScaler(feature_range=(0,1)).fit_transform((test_samp
 #define model net
 model = Sequential([
     Dense(16, input_shape=(1,), activation='relu'), #first hidden layer
-    Dense(32, activation='relu'), #second hidden layer
+    Dense(32, activation='relu', kernel_regularizer=regularizers.l2(0.01)), #second hidden layer
     Dense(2, activation='softmax') #output layer
 ])
 #compile with optimiser and loss function
