@@ -13,14 +13,6 @@ import numpy as np
 #generate random data
 train_labels = []
 train_samples = []
-for i in range(1000):
-    random_young = randint(13,65)
-    train_samples.append(random_young)
-    train_labels.append(0)
-    
-    random_old = randint(65,100)
-    train_samples.append(random_old)
-    train_labels.append(1)
 for i in range(50):
     random_young = randint(13,65)
     train_samples.append(random_young)
@@ -29,6 +21,14 @@ for i in range(50):
     random_old = randint(65,100)
     train_samples.append(random_old)
     train_labels.append(0)
+for i in range(1000):
+    random_young = randint(13,65)
+    train_samples.append(random_young)
+    train_labels.append(0)
+    
+    random_old = randint(65,100)
+    train_samples.append(random_old)
+    train_labels.append(1)
 train_labels = np.array(train_labels)
 train_samples = np.array(train_samples)
 scaled_train_samples = MinMaxScaler(feature_range=(0,1)).fit_transform((train_samples).reshape(-1,1))
@@ -42,10 +42,11 @@ scaled_test_samples = MinMaxScaler(feature_range=(0,1)).fit_transform((test_samp
 #define model net
 model = Sequential([
     Dense(16, input_shape=(1,), activation='relu'), #first hidden layer
-    Dense(32, activation='relu', kernel_regularizer=regularizers.l2(0.01)), #second hidden layer
+    Dense(32, activation='relu', kernel_regularizer=regularizers.l2(0.01)), #second hidden layer with regulariser
     BatchNormalization(axis=1), # can also set beta_initializer and gamma_initializer
     Dense(2, activation='softmax') #output layer
 ])
+model.summary()
 #compile with optimiser and loss function
 model.compile(
     Adam(lr=.0001), #based on SGD
