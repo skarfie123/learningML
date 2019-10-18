@@ -1,10 +1,11 @@
 import keras
 from keras import backend as K
 from keras.models import Sequential
-from keras.layers import Activation
+from keras.layers import Activation, BatchNormalization
 from keras.layers.core import Dense
 from keras.optimizers import Adam
 from keras.metrics import categorical_crossentropy
+from keras import regularizers
 from random import randint
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
@@ -42,6 +43,7 @@ scaled_test_samples = MinMaxScaler(feature_range=(0,1)).fit_transform((test_samp
 model = Sequential([
     Dense(16, input_shape=(1,), activation='relu'), #first hidden layer
     Dense(32, activation='relu', kernel_regularizer=regularizers.l2(0.01)), #second hidden layer
+    BatchNormalization(axis=1), # can also set beta_initializer and gamma_initializer
     Dense(2, activation='softmax') #output layer
 ])
 #compile with optimiser and loss function
