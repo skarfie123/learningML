@@ -71,3 +71,11 @@ predictions = model.predict(
 )
 
 print(predictions)
+
+classes = model.predict_classes(
+    scaled_test_samples, 
+    batch_size=10, 
+    verbose=0
+)
+
+print(classes)
