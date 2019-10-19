@@ -148,3 +148,9 @@ def plot_confusion_matrix(y_true, y_pred, classes,
 
 plot_confusion_matrix(test_labels, classes, ["healthy", "ill"], title="Confusion Matrix")
 plt.show()
+
+#alternative
+import seaborn as sns
+sns.set()
+ax = sns.heatmap(confusion_matrix(test_labels, classes),annot=True,fmt='.5g')
+plt.show()
