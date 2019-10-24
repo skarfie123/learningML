@@ -41,7 +41,7 @@ scaled_test_samples = MinMaxScaler(feature_range=(0,1)).fit_transform((test_samp
 
 #define model net
 model = Sequential([
-    Dense(16, input_shape=(1,), activation='relu'), #first hidden layer
+    Dense(16, input_shape=(1,), activation='relu', , use_bias=True, bias_initializer='zeros'), #first hidden layer, biases are zeros and used by default
     Dense(32, activation='relu', kernel_regularizer=regularizers.l2(0.01)), #second hidden layer with regulariser
     BatchNormalization(axis=1), # can also set beta_initializer and gamma_initializer
     Dense(2, activation='softmax') #output layer
