@@ -3,3 +3,5 @@
 *.json
 
 datasets/
+
+__pycache__
