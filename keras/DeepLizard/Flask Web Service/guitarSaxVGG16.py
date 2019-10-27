@@ -13,9 +13,8 @@ valid_batches = ImageDataGenerator().flow_from_directory(r"C:\Users\rahul\Docume
 
 model_vgg16 = keras.applications.vgg16.VGG16()
 model = Sequential()
-for layer in model_vgg16.layers:
+for layer in model_vgg16.layers[:-1]: # remove output layer (vgg16 has 1000 outputs)
     model.add(layer)
-model.layers.pop() # remove output layer (vgg16 has 1000 outputs)
 for layer in model.layers:
     layer.trainable = False # freeze all vgg16 weights
 model.add(Dense(2, activation="softmax"))
