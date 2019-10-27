@@ -19,6 +19,7 @@ model.layers.pop() # remove output layer (vgg16 has 1000 outputs)
 for layer in model.layers:
     layer.trainable = False # freeze all vgg16 weights
 model.add(Dense(2, activation="softmax"))
+model.summary()
 
 model.compile(
     Adam(lr=.0001),
@@ -26,5 +27,7 @@ model.compile(
     metrics=['accuracy']
 )
 
-model.fit_generator(train_batches, steps_per_epoch=6, validation_data=valid_batches, validation_steps=2, epochs=5, verbose=2)
+model.fit_generator(train_batches, steps_per_epoch=6, validation_data=valid_batches, validation_steps=2, epochs=20, verbose=2)
 predictions = model.predict_generator(test_batches, steps=1, verbose=0)
+
+model.save("guitarSax.h5")
