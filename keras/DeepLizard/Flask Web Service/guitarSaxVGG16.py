@@ -1,11 +1,8 @@
-import keras
-from keras.models import Sequential
-from keras.layers import Activation
-from keras.layers.core import Dense, Flatten
-from keras.layers.convolutional import *
-from keras.layers.pooling import *
-from keras.preprocessing.image import ImageDataGenerator
-from keras.optimizers import Adam
+from tensorflow import keras
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.optimizers import Adam
 
 train_batches = ImageDataGenerator().flow_from_directory(r"C:\Users\rahul\Documents\github\learningML\datasets\guitar-saxophone\train", target_size=(224,224), batch_size=10) # total 60
 test_batches = ImageDataGenerator().flow_from_directory(r"C:\Users\rahul\Documents\github\learningML\datasets\guitar-saxophone\test", target_size=(224,224), batch_size=5) # total 5

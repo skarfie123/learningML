@@ -2,12 +2,12 @@ import base64
 import numpy as np
 import io
 from PIL import Image
-import keras
-from keras import backend as K
-from keras.models import Sequential
-from keras.models import load_model
-from keras.preprocessing.image import ImageDataGenerator
-from keras.preprocessing.image import img_to_array
+from tensorflow import keras
+from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.preprocessing.image import ImageDataGenerator, img_to_array
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras import backend as K
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -26,8 +26,7 @@ def preprocess_image(image, target_size):
     return image
 
 print(" * Loading Keras model...")
-#get_model()
-model = load_model('guitarSax.h5')
+get_model()
 
 @app.route("/predict", methods=["POST"])
 def predict():
