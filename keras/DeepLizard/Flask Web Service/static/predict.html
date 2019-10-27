@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guitar Saxophone Prediction App</title>
+    <style>
+        * {
+            font-size: 30px
+        }
+    </style>
+</head>
+<body>
+<input id="image-selector" type="file">
+<button id="predict-button">Predict</button>
+<p style="font-weight:bold">Predictions</p>
+<p>Guitar: <span id="guitar-prediction"></span></p>
+<p>Saxophone: <span id="saxophone-prediction"></span></p>
+<img id="selected-image" src="" alt="selected image"/>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    let base64lmage;
+    $("#image-selector").change(function () {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            let dataURL = reader.result;
+            $('#selected-image').attr("src", dataURL);
+            base64lmage = dataURL.replace("data:image/jpeg;base64,", "");
+            console.log(base64Image);
+        }
+        reader.readAsDataURL($("#image-selector")[0].files[0]);
+        $("#guitar-prediction").text("");
+        $("#saxophone-prediction").text("");
+    });
+
+    $("#predict-button").click(function (event) {
+        let message = {
+            image: base64lmage
+        };
+        console.log(message);
+        $.post("http://localhost:5000/predict", JSON.stringify(message), function (response) {
+            $("#guitar-prediction").text(response.prediction.guitar.toFixed(6));
+            $("#saxophone-prediction").text(response.prediction.saxophone.toFixed(6));
+            console.log(response);
+        });
+    });
+</script>
+</body>
+</html>
