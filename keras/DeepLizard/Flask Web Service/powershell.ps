@@ -1,0 +1,7 @@
+$fileName = 'C:\pics\test.PNG'
+$bytes = [IO.File]::ReadAllBytes($bytes)
+$base64Image = [Convert]::ToBase64String($bytes)
+$message = @{ image = $base64Image }
+$jsonified = ConvertTo-Json $message
+$response = Invoke-RestMethod -Method Post -Uri "http://localho2st:5000/predict -Body $jsonified
+$response.prediction | format-list 
